@@ -3,325 +3,594 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Primary Hyperparathyroidism — Structured Study Guide</title>
+<meta name="description" content="Interactive clinical workflow for evaluating and managing primary hyperparathyroidism." />
+<title>Primary Hyperparathyroidism — Clinical Workflow</title>
 <style>
 :root{
-  --bg:#f6f8fb; --panel:#ffffff; --ink:#172033; --muted:#5f6b7a;
-  --line:#dfe5ec; --accent:#315efb; --accent-soft:#edf2ff;
-  --teal:#0b7a75; --teal-soft:#e8f7f5; --amber:#9a5b00; --amber-soft:#fff6df;
-  --red:#a52a2a; --red-soft:#fff0f0; --shadow:0 8px 28px rgba(23,32,51,.08);
+  --bg:#f5f7fb; --panel:#ffffff; --ink:#172033; --muted:#5e6a7a; --line:#dce3ec;
+  --nav:#111a2c; --nav2:#1b2944; --blue:#2857d9; --blue-soft:#edf2ff;
+  --teal:#08766f; --teal-soft:#e7f7f4; --amber:#8c5800; --amber-soft:#fff6dd;
+  --red:#a12a34; --red-soft:#fff0f2; --green:#206a43; --green-soft:#edf8f1;
+  --shadow:0 8px 28px rgba(23,32,51,.08);
 }
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
 body{margin:0;background:var(--bg);color:var(--ink);font:15.5px/1.55 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif}
-a{color:var(--accent);text-decoration:none}
-.shell{display:grid;grid-template-columns:285px minmax(0,1fr);min-height:100vh}
-.sidebar{position:sticky;top:0;height:100vh;overflow:auto;background:#121a2b;color:#dce5ff;padding:24px 18px;border-right:1px solid #26304a}
-.brand{font-weight:800;letter-spacing:.02em;font-size:17px;margin-bottom:4px}.subbrand{color:#9fb0d6;font-size:12px;margin-bottom:20px}
-.search{width:100%;padding:10px 11px;border-radius:8px;border:1px solid #33415f;background:#1b263d;color:white;outline:none;margin-bottom:18px}
-nav a{display:block;color:#c9d5f2;padding:7px 9px;border-radius:7px;font-size:13px;margin:2px 0}nav a:hover{background:#22304d;color:white}.navhead{color:#7f93bf;font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.08em;margin:18px 8px 6px}
-main{padding:34px 42px 80px;max-width:1180px;width:100%}
-.hero{background:linear-gradient(135deg,#ffffff 0%,#edf2ff 100%);border:1px solid #d9e1fb;border-radius:18px;padding:28px 30px;box-shadow:var(--shadow)}
-.eyebrow{font-size:12px;text-transform:uppercase;letter-spacing:.1em;font-weight:800;color:var(--accent)}h1{font-size:34px;line-height:1.15;margin:8px 0 10px}h2{font-size:24px;margin:36px 0 14px;padding-top:8px}h3{font-size:18px;margin:24px 0 10px}h4{font-size:15px;margin:18px 0 6px}.lead{font-size:17px;color:#3b475a;max-width:850px}.meta{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}.pill{display:inline-flex;align-items:center;padding:5px 9px;border-radius:999px;background:#fff;border:1px solid var(--line);font-size:12px;color:#4d596b}
+a{color:var(--blue);text-decoration:none}
+button,input,select,textarea{font:inherit}
+.shell{display:grid;grid-template-columns:300px minmax(0,1fr);min-height:100vh}
+.sidebar{position:sticky;top:0;height:100vh;overflow:auto;background:var(--nav);color:#dbe5ff;padding:22px 17px;border-right:1px solid #26334e}
+.brand{font-size:17px;font-weight:850;letter-spacing:.01em}.subbrand{font-size:12px;color:#9eafd2;margin:4px 0 17px}
+.search{width:100%;padding:10px 11px;border-radius:9px;border:1px solid #33425f;background:#1a2740;color:white;outline:none;margin-bottom:15px}
+.navhead{color:#8194bd;font-size:10.5px;font-weight:850;text-transform:uppercase;letter-spacing:.09em;margin:17px 8px 6px}
+nav a{display:block;color:#cbd6ef;padding:7px 9px;border-radius:7px;font-size:13px;margin:2px 0}nav a:hover{background:var(--nav2);color:#fff}
+main{padding:32px 42px 90px;max-width:1220px;width:100%}
+.hero{background:linear-gradient(135deg,#fff 0%,#edf2ff 100%);border:1px solid #d7e0fb;border-radius:18px;padding:27px 30px;box-shadow:var(--shadow)}
+.eyebrow{font-size:12px;text-transform:uppercase;letter-spacing:.11em;font-weight:850;color:var(--blue)}
+h1{font-size:35px;line-height:1.15;margin:7px 0 9px}h2{font-size:24px;margin:37px 0 14px;padding-top:6px}h3{font-size:18px;margin:24px 0 10px}h4{font-size:15px;margin:17px 0 7px}.lead{font-size:17px;color:#39465a;max-width:900px}.muted{color:var(--muted)}.small{font-size:12px}.tiny{font-size:11px}
+.meta{display:flex;gap:9px;flex-wrap:wrap;margin-top:15px}.pill{display:inline-flex;padding:5px 9px;border-radius:999px;background:#fff;border:1px solid var(--line);font-size:12px;color:#4d596b}
 .card{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:20px 22px;margin:14px 0;box-shadow:0 3px 14px rgba(23,32,51,.04)}
-.grid2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}.grid3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
-.callout{border-left:5px solid var(--accent);background:var(--accent-soft);padding:14px 16px;border-radius:8px;margin:14px 0}.callout.teal{border-color:var(--teal);background:var(--teal-soft)}.callout.warn{border-color:var(--amber);background:var(--amber-soft)}.callout.red{border-color:var(--red);background:var(--red-soft)}
-.label{display:inline-block;font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.07em;padding:3px 7px;border-radius:5px;background:var(--accent-soft);color:var(--accent);margin-bottom:7px}
-.label.teal{background:var(--teal-soft);color:var(--teal)}.label.warn{background:var(--amber-soft);color:var(--amber)}.label.red{background:var(--red-soft);color:var(--red)}
-.tablewrap{overflow:auto;border:1px solid var(--line);border-radius:12px;background:white;margin:12px 0 18px}table{border-collapse:collapse;width:100%;min-width:720px}th,td{padding:12px 13px;border-bottom:1px solid var(--line);vertical-align:top;text-align:left}th{background:#f1f4f8;font-size:12px;text-transform:uppercase;letter-spacing:.04em;color:#435066}tr:last-child td{border-bottom:0}
-ul,ol{padding-left:22px}li{margin:5px 0}.tight li{margin:2px 0}.kpi{font-size:25px;font-weight:800}.muted{color:var(--muted)}
-.flow{display:grid;grid-template-columns:1fr;gap:9px;counter-reset:step}.step{position:relative;background:white;border:1px solid var(--line);border-radius:10px;padding:13px 15px 13px 52px}.step:before{counter-increment:step;content:counter(step);position:absolute;left:14px;top:12px;width:25px;height:25px;border-radius:50%;display:grid;place-items:center;background:var(--accent);color:white;font-weight:800}
-details{background:white;border:1px solid var(--line);border-radius:10px;margin:10px 0}summary{cursor:pointer;padding:13px 15px;font-weight:700}details>div{padding:0 15px 15px;color:#344054}.quiz summary{background:#f8fafc}.small{font-size:12px}.source{font-size:12px;color:#657083;border-top:1px solid var(--line);margin-top:40px;padding-top:18px}
-mark{background:#fff2a8;padding:0 2px}
-.hiddenBySearch{display:none!important}
-@media(max-width:900px){.shell{grid-template-columns:1fr}.sidebar{position:relative;height:auto}.sidebar nav{columns:2}main{padding:24px 18px 60px}.grid2,.grid3{grid-template-columns:1fr}h1{font-size:29px}}
-@media print{.sidebar{display:none}.shell{display:block}main{max-width:none;padding:0}.card,.hero{box-shadow:none;break-inside:avoid}details>div{display:block!important}summary{list-style:none}}
+.grid2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}.grid3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}.grid4{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
+.callout{border-left:5px solid var(--blue);background:var(--blue-soft);padding:14px 16px;border-radius:9px;margin:14px 0}.callout.teal{border-color:var(--teal);background:var(--teal-soft)}.callout.warn{border-color:var(--amber);background:var(--amber-soft)}.callout.red{border-color:var(--red);background:var(--red-soft)}.callout.green{border-color:var(--green);background:var(--green-soft)}
+.label{display:inline-block;font-size:10.5px;font-weight:850;text-transform:uppercase;letter-spacing:.07em;padding:3px 7px;border-radius:5px;background:var(--blue-soft);color:var(--blue);margin-bottom:7px}.label.teal{background:var(--teal-soft);color:var(--teal)}.label.warn{background:var(--amber-soft);color:var(--amber)}.label.red{background:var(--red-soft);color:var(--red)}.label.green{background:var(--green-soft);color:var(--green)}
+.kpi{font-size:24px;font-weight:850}.question{font-size:20px;font-weight:800;margin-bottom:7px}
+.tablewrap{overflow:auto;border:1px solid var(--line);border-radius:12px;background:white;margin:12px 0 18px}table{border-collapse:collapse;width:100%;min-width:760px}th,td{padding:12px 13px;border-bottom:1px solid var(--line);vertical-align:top;text-align:left}th{background:#f1f4f8;font-size:11px;text-transform:uppercase;letter-spacing:.05em;color:#435066}tr:last-child td{border-bottom:0}
+ul,ol{padding-left:22px}li{margin:5px 0}.tight li{margin:2px 0}
+.flow{display:grid;gap:9px;counter-reset:step}.step{position:relative;background:#fff;border:1px solid var(--line);border-radius:10px;padding:13px 15px 13px 53px}.step:before{counter-increment:step;content:counter(step);position:absolute;left:14px;top:12px;width:26px;height:26px;border-radius:50%;display:grid;place-items:center;background:var(--blue);color:white;font-weight:850}
+.branch{border:1px solid var(--line);border-radius:12px;background:#fff;padding:16px 18px;margin:10px 0}.branch .arrow{font-weight:850;color:var(--blue)}
+details{background:white;border:1px solid var(--line);border-radius:10px;margin:10px 0}summary{cursor:pointer;padding:13px 15px;font-weight:750}details>div{padding:0 15px 15px;color:#344054}
+.formcard{background:#fff;border:1px solid var(--line);border-radius:14px;padding:20px 21px;margin:14px 0}.formgrid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}.field label{display:block;font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.04em;color:#4b586b;margin-bottom:5px}.field input,.field select,.field textarea{width:100%;border:1px solid #cfd7e2;border-radius:8px;padding:9px 10px;background:white;color:var(--ink)}.field input:focus,.field select:focus,.field textarea:focus{outline:2px solid #cad7ff;border-color:#8ca5f2}.field small{display:block;color:var(--muted);margin-top:4px}
+.checkgrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px 12px;margin:10px 0}.check{display:flex;gap:8px;align-items:flex-start;background:#f8fafc;border:1px solid #e4e9f0;border-radius:8px;padding:8px 9px}.check input{margin-top:3px}
+.btn{border:0;border-radius:9px;padding:10px 14px;font-weight:800;cursor:pointer;background:var(--blue);color:#fff}.btn:hover{filter:brightness(.95)}.btn.secondary{background:#e9eef8;color:#24324a}.btn.teal{background:var(--teal)}.btn.smallbtn{padding:7px 10px;font-size:12px}.actions{display:flex;gap:9px;flex-wrap:wrap;margin-top:14px}
+.result{display:none;margin-top:16px}.result.show{display:block}.resultgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.resultbox{border:1px solid var(--line);border-radius:11px;padding:14px 15px;background:#fff}.resultbox h4{margin:0 0 7px}.status{display:inline-block;border-radius:999px;padding:4px 8px;font-size:11px;font-weight:850}.status.green{background:var(--green-soft);color:var(--green)}.status.amber{background:var(--amber-soft);color:var(--amber)}.status.red{background:var(--red-soft);color:var(--red)}.status.blue{background:var(--blue-soft);color:var(--blue)}
+.orderlist{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px 12px}.orderitem{display:flex;gap:8px;align-items:flex-start;border:1px solid var(--line);background:#fff;border-radius:9px;padding:9px 10px}.copybox{background:#101827;color:#e4ebff;border-radius:10px;padding:14px;white-space:pre-wrap;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:12px;min-height:120px}
+.badge{display:inline-block;padding:3px 7px;border-radius:5px;font-size:11px;font-weight:800;background:#eef2f7;color:#425169}.yes{background:var(--green-soft);color:var(--green)}.no{background:#f0f2f5;color:#616b78}
+.source{font-size:12px;color:#657083;border-top:1px solid var(--line);margin-top:42px;padding-top:18px}.source li{margin:3px 0}
+.hiddenBySearch{display:none!important}.nowrap{white-space:nowrap}
+@media(max-width:1000px){.formgrid{grid-template-columns:repeat(2,minmax(0,1fr))}.grid4{grid-template-columns:repeat(2,minmax(0,1fr))}.checkgrid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:820px){.shell{grid-template-columns:1fr}.sidebar{position:relative;height:auto}.sidebar nav{columns:2}main{padding:23px 17px 60px}.grid2,.grid3,.grid4,.resultgrid,.orderlist{grid-template-columns:1fr}.formgrid,.checkgrid{grid-template-columns:1fr}h1{font-size:29px}}
+@media print{.sidebar,.actions,.btn{display:none!important}.shell{display:block}main{max-width:none;padding:0}.card,.hero,.formcard{box-shadow:none;break-inside:avoid}details>div{display:block!important}summary{list-style:none}.result{display:block}}
 </style>
 </head>
 <body>
 <div class="shell">
 <aside class="sidebar">
-  <div class="brand">Endocrine Study Guide</div>
-  <div class="subbrand">Rapid clinical review for endocrine practice</div>
-  <input id="search" class="search" placeholder="Search this guide…" aria-label="Search this guide" />
+  <div class="brand">PHPT Clinical Workflow</div>
+  <div class="subbrand">From abnormal calcium to follow-up</div>
+  <input id="search" class="search" placeholder="Search this page…" aria-label="Search this page" />
   <nav>
-    <div class="navhead">Core</div>
-    <a href="#summary">Summary</a><a href="#overview">At a glance</a><a href="#classification">Classification</a><a href="#pathophys">Pathophysiology</a>
-    <div class="navhead">Diagnosis</div>
-    <a href="#diagnosis">Diagnostic approach</a><a href="#labs">Typical laboratory profile</a><a href="#fhh">PHPT vs FHH</a><a href="#normocalcemic">Normocalcemic PHPT</a>
-    <div class="navhead">Clinical</div>
-    <a href="#features">Clinical features</a><a href="#evaluation">Evaluation checklist</a><a href="#skeletal">Skeletal disease</a><a href="#renal">Renal disease</a>
-    <div class="navhead">Treatment</div>
-    <a href="#surgery">Parathyroidectomy</a><a href="#localization">Localization</a><a href="#postop">Postoperative care</a><a href="#medical">Medical management</a><a href="#monitoring">Monitoring</a>
-    <div class="navhead">Advanced</div>
-    <a href="#special">Special situations</a><a href="#natural">Natural history</a><a href="#pearls">Clinical pearls</a><a href="#quiz">Self-check</a>
+    <div class="navhead">Use during clinic</div>
+    <a href="#start">Start here</a>
+    <a href="#interpreter">Case interpreter</a>
+    <a href="#orders">What to order</a>
+    <a href="#note">Assessment & plan builder</a>
+    <div class="navhead">Clinical reasoning</div>
+    <a href="#algorithm">Diagnostic algorithm</a>
+    <a href="#labs">Interpret every lab</a>
+    <a href="#differential">Differential diagnosis</a>
+    <a href="#fhh">PHPT vs FHH</a>
+    <a href="#normocalcemic">Normocalcemic PHPT</a>
+    <div class="navhead">Management</div>
+    <a href="#organ">Target-organ evaluation</a>
+    <a href="#surgery">Surgery decision</a>
+    <a href="#localization">Localization</a>
+    <a href="#medical">Nonoperative management</a>
+    <a href="#monitoring">Monitoring</a>
+    <a href="#postop">Postoperative care</a>
+    <div class="navhead">Edge cases</div>
+    <a href="#special">Special situations</a>
+    <a href="#cases">Case walkthroughs</a>
+    <a href="#pitfalls">Pitfalls</a>
+    <a href="#references">Guideline basis</a>
   </nav>
 </aside>
 <main>
 <section class="hero searchable" id="top">
   <div class="eyebrow">Primary hyperparathyroidism</div>
-  <h1>Primary Hyperparathyroidism</h1>
-  <p class="lead">A clinically organized, high-yield guide that puts diagnosis, decision points, treatment, and monitoring first.</p>
-  <div class="meta"><span class="pill">Focus: PHPT</span><span class="pill">Interactive HTML</span><span class="pill">Clinical study guide</span></div>
+  <h1>Patient-centered clinical workflow</h1>
+  <p class="lead">Built to answer the questions that matter in clinic: Is the calcium truly high? Is the process PTH-dependent? Is this PHPT or a mimic? What complications must be assessed? Does the patient need surgery? What is the plan if surgery is deferred?</p>
+  <div class="meta"><span class="pill">Interactive lab interpretation</span><span class="pill">Differential diagnosis</span><span class="pill">Current surgical thresholds</span><span class="pill">Postoperative follow-up</span></div>
 </section>
 
-<section id="summary" class="searchable">
-<h2>Summary</h2>
-<div class="callout teal"><strong>Primary hyperparathyroidism (PHPT)</strong> is hypercalcemia caused by excessive PTH secretion from one or more parathyroid glands. The PTH may be elevated or merely <em>inappropriately normal</em> for the degree of hypercalcemia. Most modern cases are mild and asymptomatic, but clinically silent kidney stones, vertebral fractures, osteoporosis, and hypercalciuria can still be present. Parathyroidectomy is the only curative treatment.</div>
-<div class="callout warn"><strong>Guideline warning:</strong> Operative thresholds and monitoring recommendations evolve. Verify current society guidance before making clinical decisions.</div>
-</section>
-
-<section id="overview" class="searchable">
-<h2>At a glance</h2>
+<section id="start" class="searchable">
+<h2>Start here: the six decisions</h2>
 <div class="grid3">
-  <div class="card"><div class="label">Definition</div><div class="kpi">↑ Ca + nonsuppressed PTH</div><p class="muted">PTH is elevated or inappropriately normal.</p></div>
-  <div class="card"><div class="label teal">Most common pathology</div><div class="kpi">Single adenoma</div><p class="muted">Approximately 80% of cases.</p></div>
-  <div class="card"><div class="label warn">Definitive treatment</div><div class="kpi">Parathyroidectomy</div><p class="muted">Only curative therapy.</p></div>
+  <div class="card"><div class="label">1</div><div class="question">Is calcium truly elevated?</div><p class="muted">Repeat it, account for albumin, and obtain ionized calcium when the total calcium is unreliable or discordant.</p></div>
+  <div class="card"><div class="label">2</div><div class="question">Is PTH suppressed?</div><p class="muted">This is the main fork. Nonsuppressed PTH means PTH-dependent hypercalcemia. Suppressed PTH sends the workup elsewhere.</p></div>
+  <div class="card"><div class="label">3</div><div class="question">Is it PHPT or a mimic?</div><p class="muted">Exclude FHH, lithium/thiazide effects, tertiary hyperparathyroidism, and misleading urine-calcium results.</p></div>
+  <div class="card"><div class="label teal">4</div><div class="question">Is there organ damage?</div><p class="muted">Look for silent stones, nephrocalcinosis, reduced renal function, osteoporosis, and vertebral fracture.</p></div>
+  <div class="card"><div class="label teal">5</div><div class="question">Does the patient meet surgical criteria?</div><p class="muted">Only one criterion is needed. Surgery can still be chosen without a formal criterion if appropriate.</p></div>
+  <div class="card"><div class="label teal">6</div><div class="question">What happens next?</div><p class="muted">Choose surgery, targeted medical therapy, surveillance, or urgent stabilization based on the actual problem.</p></div>
 </div>
-<div class="tablewrap"><table>
-<thead><tr><th>Domain</th><th>Core point</th></tr></thead>
-<tbody>
-<tr><td>Biochemistry</td><td>Mild hypercalcemia is common; PTH is elevated or not appropriately suppressed. Phosphate is often low-normal. Urinary calcium is frequently high-normal or elevated.</td></tr>
-<tr><td>Typical presentation</td><td>Asymptomatic biochemical disease discovered on routine testing.</td></tr>
-<tr><td>Target organs</td><td>Skeleton and kidney. Neurocognitive, cardiovascular, and gastrointestinal associations are less specific.</td></tr>
-<tr><td>Key evaluation</td><td>Repeat/confirm calcium, PTH, renal function, 25-OH vitamin D, phosphate, urine calcium/creatinine, three-site DXA, vertebral assessment, renal imaging.</td></tr>
-<tr><td>Imaging principle</td><td>Neck imaging localizes abnormal glands for surgery; it does not establish the diagnosis.</td></tr>
-</tbody></table></div>
+<div class="callout red"><strong>Do not start with a sestamibi scan.</strong> PHPT is a biochemical diagnosis. Localization imaging is ordered only after the patient is going to surgery.</div>
 </section>
 
-<section id="classification" class="searchable">
-<h2>Classification and major differentials</h2>
-<div class="tablewrap"><table>
-<thead><tr><th>Condition</th><th>Calcium</th><th>PTH</th><th>Urine calcium / context</th><th>Key distinction</th></tr></thead>
-<tbody>
-<tr><td><strong>Primary HPT</strong></td><td>High</td><td>High or inappropriately normal</td><td>Often high-normal or high</td><td>Autonomous parathyroid secretion</td></tr>
-<tr><td><strong>Secondary HPT</strong></td><td>Low or normal</td><td>High</td><td>Depends on cause</td><td>Appropriate response to CKD, vitamin D deficiency, malabsorption, low calcium intake, or hypercalciuria</td></tr>
-<tr><td><strong>Tertiary HPT</strong></td><td>High</td><td>High</td><td>Usually longstanding renal disease or post-transplant context</td><td>Autonomous secretion after prolonged severe secondary HPT</td></tr>
-<tr><td><strong>FHH</strong></td><td>High</td><td>Normal-high or high</td><td>Typically low</td><td>Lifelong/familial pattern; CASR-pathway disorders; surgery generally does not correct it</td></tr>
-<tr><td><strong>Non-PTH hypercalcemia</strong></td><td>High</td><td>Suppressed</td><td>Variable</td><td>Malignancy, vitamin D-mediated disease, granulomatous disease, and other causes</td></tr>
-</tbody></table></div>
+<section id="interpreter" class="searchable">
+<h2>Interactive case interpreter</h2>
+<p>Enter the values you have. The output structures the reasoning; it does not replace review of the chart, assay ranges, medications, collection quality, or specialist judgment.</p>
+<div class="formcard">
+  <h3 style="margin-top:0">Patient and serum studies</h3>
+  <div class="formgrid">
+    <div class="field"><label for="age">Age</label><input id="age" type="number" min="0" placeholder="e.g., 58"></div>
+    <div class="field"><label for="sex">Sex used for urine-Ca threshold</label><select id="sex"><option value="">Select</option><option value="female">Female</option><option value="male">Male</option></select></div>
+    <div class="field"><label for="ca">Total calcium (mg/dL)</label><input id="ca" type="number" step="0.01" placeholder="e.g., 10.8"></div>
+    <div class="field"><label for="cauln">Calcium ULN (mg/dL)</label><input id="cauln" type="number" step="0.01" value="10.2"></div>
+    <div class="field"><label for="albumin">Albumin (g/dL)</label><input id="albumin" type="number" step="0.01" placeholder="e.g., 3.4"><small>Correction is only an estimate.</small></div>
+    <div class="field"><label for="ionca">Ionized calcium</label><input id="ionca" type="number" step="0.001" placeholder="optional"></div>
+    <div class="field"><label for="ioncauln">Ionized Ca ULN</label><input id="ioncauln" type="number" step="0.001" placeholder="lab-specific"></div>
+    <div class="field"><label for="pth">Intact PTH (pg/mL)</label><input id="pth" type="number" step="0.1" placeholder="e.g., 61"></div>
+    <div class="field"><label for="pthlln">PTH LLN</label><input id="pthlln" type="number" step="0.1" value="15"></div>
+    <div class="field"><label for="pthuln">PTH ULN</label><input id="pthuln" type="number" step="0.1" value="65"></div>
+    <div class="field"><label for="vitd">25-OH vitamin D (ng/mL)</label><input id="vitd" type="number" step="0.1" placeholder="e.g., 24"></div>
+    <div class="field"><label for="egfr">eGFR or CrCl (mL/min)</label><input id="egfr" type="number" step="0.1" placeholder="e.g., 74"></div>
+    <div class="field"><label for="phos">Phosphorus (mg/dL)</label><input id="phos" type="number" step="0.01" placeholder="optional"></div>
+    <div class="field"><label for="alp">Alkaline phosphatase</label><input id="alp" type="number" step="0.1" placeholder="optional"></div>
+    <div class="field"><label for="tScore">Lowest T-score</label><input id="tScore" type="number" step="0.1" placeholder="e.g., -2.7"></div>
+    <div class="field"><label for="caHistory">Prior calcium pattern</label><select id="caHistory"><option value="unknown">Unknown</option><option value="new">New/progressive</option><option value="lifelong">Lifelong/stable</option></select></div>
+  </div>
+
+  <h3>24-hour urine data</h3>
+  <div class="formgrid">
+    <div class="field"><label for="urineCa">Urine calcium (mg/24 h)</label><input id="urineCa" type="number" step="0.1" placeholder="e.g., 180"></div>
+    <div class="field"><label for="urineCr">Urine creatinine (mg/24 h)</label><input id="urineCr" type="number" step="0.1" placeholder="e.g., 1300"></div>
+    <div class="field"><label for="serumCr">Serum creatinine (mg/dL)</label><input id="serumCr" type="number" step="0.01" placeholder="e.g., 0.9"></div>
+    <div class="field"><label for="collection">Collection quality</label><select id="collection"><option value="unknown">Unknown</option><option value="adequate">Appears adequate</option><option value="questionable">Questionable/incomplete</option></select></div>
+  </div>
+
+  <h3>Clinical context and confounders</h3>
+  <div class="checkgrid">
+    <label class="check"><input id="stone" type="checkbox"> Kidney stone or nephrocalcinosis</label>
+    <label class="check"><input id="vertebral" type="checkbox"> Vertebral or low-trauma fracture</label>
+    <label class="check"><input id="thiazide" type="checkbox"> Thiazide use</label>
+    <label class="check"><input id="lithium" type="checkbox"> Lithium use</label>
+    <label class="check"><input id="biotin" type="checkbox"> High-dose biotin exposure</label>
+    <label class="check"><input id="family" type="checkbox"> Family history of hypercalcemia</label>
+    <label class="check"><input id="malabsorption" type="checkbox"> Bariatric surgery or malabsorption</label>
+    <label class="check"><input id="lowCaIntake" type="checkbox"> Low calcium intake</label>
+    <label class="check"><input id="antiresorptive" type="checkbox"> Bisphosphonate or denosumab use</label>
+    <label class="check"><input id="dialysis" type="checkbox"> Long-standing CKD/dialysis or renal transplant</label>
+    <label class="check"><input id="symptomatic" type="checkbox"> Overt PHPT complication/symptomatic disease</label>
+    <label class="check"><input id="pregnant" type="checkbox"> Pregnancy</label>
+  </div>
+  <div class="actions"><button class="btn" id="interpretBtn">Interpret this case</button><button class="btn secondary" id="resetBtn">Reset</button></div>
+
+  <div id="caseResult" class="result" aria-live="polite">
+    <div class="resultgrid">
+      <div class="resultbox"><h4>1. Calcium status</h4><div id="calciumOutput"></div></div>
+      <div class="resultbox"><h4>2. PTH branch</h4><div id="pthOutput"></div></div>
+      <div class="resultbox"><h4>3. Leading diagnostic direction</h4><div id="diagnosisOutput"></div></div>
+      <div class="resultbox"><h4>4. Urine calcium / FHH assessment</h4><div id="urineOutput"></div></div>
+      <div class="resultbox"><h4>5. Surgical criteria</h4><div id="surgeryOutput"></div></div>
+      <div class="resultbox"><h4>6. Next actions</h4><div id="nextOutput"></div></div>
+    </div>
+  </div>
+</div>
+<div class="callout warn"><strong>Corrected calcium limitation:</strong> the common formula is a rough estimate and can be misleading in critical illness, major protein abnormalities, acid-base disturbance, or marked hypoalbuminemia. Use ionized calcium when the result will change the diagnosis.</div>
 </section>
 
-<section id="pathophys" class="searchable">
-<h2>Pathophysiology</h2>
+<section id="orders" class="searchable">
+<h2>What to order</h2>
 <div class="grid2">
-<div class="card"><div class="label">Bone</div><ul class="tight"><li>PTH increases bone remodeling.</li><li>Chronic excess preferentially affects cortical bone.</li><li>Classic severe disease may produce subperiosteal resorption, osteitis fibrosa cystica, and brown tumors.</li></ul></div>
-<div class="card"><div class="label">Kidney</div><ul class="tight"><li>Increases renal calcium reabsorption.</li><li>Promotes phosphate excretion.</li><li>Stimulates renal 1-alpha hydroxylase, increasing 1,25-dihydroxyvitamin D.</li></ul></div>
-<div class="card"><div class="label">Gut</div><ul class="tight"><li>Increased active vitamin D supports intestinal calcium absorption.</li><li>Net effect contributes to hypercalcemia.</li></ul></div>
-<div class="card"><div class="label">Gland pathology</div><ul class="tight"><li>Single adenoma: most common.</li><li>Multigland hyperplasia or multiple adenomas: less common.</li><li>Parathyroid carcinoma: rare.</li></ul></div>
+  <div class="card"><div class="label">Initial abnormal calcium</div><ul class="tight"><li>Repeat total calcium and albumin</li><li>Intact PTH</li><li>Creatinine/eGFR</li><li>Phosphorus</li><li>25-OH vitamin D</li><li>Ionized calcium if total calcium is uncertain or discordant</li><li>Medication/supplement review: calcium, vitamin D, thiazide, lithium, biotin, vitamin A</li></ul></div>
+  <div class="card"><div class="label teal">After PTH-dependent hypercalcemia is confirmed</div><ul class="tight"><li>Full 24-hour urine calcium and creatinine</li><li>DXA: lumbar spine, total hip/femoral neck, distal one-third radius</li><li>Vertebral fracture assessment or vertebral radiographs when indicated</li><li>Renal imaging for nephrolithiasis/nephrocalcinosis</li><li>Stone-risk profile if stones or hypercalciuria</li><li>Genetic evaluation when age/family/multigland pattern warrants it</li></ul></div>
 </div>
+<h3>Build a copyable order set</h3>
+<div class="orderlist" id="orderList">
+  <label class="orderitem"><input type="checkbox" data-order="Repeat total calcium and albumin"> Repeat total calcium + albumin</label>
+  <label class="orderitem"><input type="checkbox" data-order="Ionized calcium"> Ionized calcium</label>
+  <label class="orderitem"><input type="checkbox" data-order="Intact PTH"> Intact PTH</label>
+  <label class="orderitem"><input type="checkbox" data-order="25-hydroxyvitamin D"> 25-OH vitamin D</label>
+  <label class="orderitem"><input type="checkbox" data-order="Phosphorus, magnesium, alkaline phosphatase"> Phosphorus, magnesium, ALP</label>
+  <label class="orderitem"><input type="checkbox" data-order="Creatinine with eGFR; calculate or measure creatinine clearance when needed"> Creatinine/eGFR or CrCl</label>
+  <label class="orderitem"><input type="checkbox" data-order="24-hour urine calcium and creatinine"> 24-hour urine calcium + creatinine</label>
+  <label class="orderitem"><input type="checkbox" data-order="Renal imaging for nephrolithiasis/nephrocalcinosis"> Renal imaging</label>
+  <label class="orderitem"><input type="checkbox" data-order="DXA: lumbar spine, total hip/femoral neck, distal one-third radius"> Three-site DXA</label>
+  <label class="orderitem"><input type="checkbox" data-order="Vertebral fracture assessment or vertebral radiographs"> VFA/vertebral imaging</label>
+  <label class="orderitem"><input type="checkbox" data-order="Biochemical stone-risk profile"> Stone-risk profile</label>
+  <label class="orderitem"><input type="checkbox" data-order="Genetic counseling/testing based on age, family history, multigland disease, or syndromic features"> Genetic evaluation</label>
+</div>
+<div class="actions"><button class="btn teal" id="buildOrders">Build order text</button><button class="btn secondary" id="copyOrders">Copy</button></div>
+<div id="ordersText" class="copybox">Select orders above, then click “Build order text.”</div>
 </section>
 
-<section id="diagnosis" class="searchable">
-<h2>Diagnostic approach</h2>
+<section id="note" class="searchable">
+<h2>Assessment & plan builder</h2>
+<p>A useful endocrine note should show your reasoning, not just state “hyperparathyroidism.”</p>
+<div class="card">
+  <ol>
+    <li><strong>State diagnostic status:</strong> suspected, biochemically confirmed, or not yet established.</li>
+    <li><strong>Show the biochemical evidence:</strong> calcium pattern, albumin/ionized calcium, PTH response, repeat dates.</li>
+    <li><strong>Address mimics and confounders:</strong> FHH, medications, CKD, vitamin D, malabsorption, collection quality.</li>
+    <li><strong>Document organ evaluation:</strong> renal imaging, 24-hour urine, renal function, three-site DXA, vertebral assessment.</li>
+    <li><strong>State whether surgery criteria are met.</strong></li>
+    <li><strong>Give a concrete next step:</strong> repeat labs, complete workup, surgeon referral, medication, or surveillance interval.</li>
+  </ol>
+</div>
+<div class="copybox" id="noteTemplate">Assessment:
+- PTH-dependent hypercalcemia / elevated PTH with normal calcium: [status].
+- Biochemical evidence: calcium [ ], albumin [ ], ionized calcium [ ], PTH [ ] on [dates].
+- Confounders/mimics reviewed: [vitamin D, kidney function, thiazide/lithium, biotin, calcium intake, malabsorption, FHH].
+- 24-hour urine calcium [ ] mg/day; collection creatinine [ ]; CCCR [ ] and limitations discussed.
+- Target-organ assessment: DXA [ ]; vertebral assessment [ ]; renal imaging [ ]; eGFR/CrCl [ ].
+- Surgical criteria: [met/not met], based on [criterion].
+
+Plan:
+1. [Confirm/complete biochemical workup].
+2. [Complete skeletal and renal evaluation].
+3. [Refer to experienced parathyroid surgeon / monitor / use targeted medical therapy].
+4. Maintain normal calcium intake, hydration, and 25-OH vitamin D >30 ng/mL with monitoring.
+5. Follow-up: [interval and labs].</div>
+<div class="actions"><button class="btn secondary" onclick="copyText('noteTemplate')">Copy note skeleton</button></div>
+</section>
+
+<section id="algorithm" class="searchable">
+<h2>Diagnostic algorithm</h2>
 <div class="flow">
-  <div class="step"><strong>Confirm hypercalcemia.</strong> Repeat total calcium with albumin correction or obtain ionized calcium when appropriate. Review dehydration, laboratory error, and medications.</div>
-  <div class="step"><strong>Measure intact PTH.</strong> In hypercalcemia, a normal-range PTH is abnormal because physiologic PTH should be suppressed.</div>
-  <div class="step"><strong>Classify as PTH-mediated or non-PTH-mediated.</strong> Nonsuppressed PTH supports PHPT, FHH, lithium-associated disease, thiazide-associated hypercalcemia, or tertiary HPT.</div>
-  <div class="step"><strong>Exclude mimics and modifiers.</strong> Review lithium/thiazides, renal function, vitamin D status, malabsorption, calcium intake, and family history. Use urine calcium data to assess for FHH.</div>
-  <div class="step"><strong>Assess target-organ involvement.</strong> Evaluate bone density/vertebral fractures and kidney stones/nephrocalcinosis before deciding on surgery or surveillance.</div>
-  <div class="step"><strong>Localize only after the decision for surgery.</strong> Ultrasound, sestamibi/SPECT, 4D-CT, or other modalities are surgical road maps—not diagnostic tests.</div>
+  <div class="step"><strong>Confirm the calcium abnormality.</strong> Repeat total calcium with albumin. Use ionized calcium when albumin correction is unreliable, total and clinical picture conflict, or normocalcemic PHPT is being considered.</div>
+  <div class="step"><strong>Interpret PTH against the calcium—not against the reference range alone.</strong> In true hypercalcemia, PTH should be suppressed. A mid-normal or high-normal PTH is physiologically abnormal.</div>
+  <div class="step"><strong>If PTH is suppressed:</strong> stop calling this PHPT. Evaluate PTH-independent hypercalcemia based on the clinical context.</div>
+  <div class="step"><strong>If PTH is elevated or nonsuppressed:</strong> consider PHPT first, then actively assess FHH, thiazide/lithium exposure, and tertiary HPT.</div>
+  <div class="step"><strong>Confirm persistence.</strong> Hypercalcemic PHPT requires elevated albumin-adjusted calcium with elevated or inappropriately normal PTH on two occasions at least two weeks apart.</div>
+  <div class="step"><strong>Complete renal and skeletal staging.</strong> The patient may appear asymptomatic yet have silent stones, nephrocalcinosis, osteoporosis, or vertebral fracture.</div>
+  <div class="step"><strong>Decide on surgery before localization.</strong> Once surgery is chosen, obtain localization to plan the operation.</div>
+</div>
+<h3>The main PTH fork</h3>
+<div class="grid2">
+  <div class="branch"><span class="status red">PTH suppressed</span><h4>Non-PTH-mediated hypercalcemia</h4><p>Think malignancy/PTHrP, vitamin D excess, granulomatous disease or lymphoma, medications, thyrotoxicosis, adrenal insufficiency, immobilization, milk-alkali physiology, and other context-specific causes.</p></div>
+  <div class="branch"><span class="status blue">PTH nonsuppressed</span><h4>PTH-dependent hypercalcemia</h4><p>PHPT is most common. Differentiate FHH, lithium/thiazide-associated physiology, tertiary HPT, and very rare ectopic PTH secretion.</p></div>
 </div>
 </section>
 
 <section id="labs" class="searchable">
-<h2>Typical laboratory profile</h2>
+<h2>Interpret every laboratory result</h2>
 <div class="tablewrap"><table>
-<thead><tr><th>Test</th><th>Typical finding</th><th>Interpretation</th></tr></thead>
+<thead><tr><th>Test</th><th>Why order it</th><th>What supports PHPT</th><th>Common trap</th><th>What to do next</th></tr></thead>
 <tbody>
-<tr><td>Total or ionized calcium</td><td>Elevated, often mildly</td><td>Most patients in modern practice are within about 1 mg/dL of the upper limit of normal.</td></tr>
-<tr><td>Intact PTH</td><td>Elevated or upper-normal</td><td>“Normal” is inappropriate in the setting of hypercalcemia.</td></tr>
-<tr><td>Phosphate</td><td>Low-normal; occasionally low</td><td>Reflects PTH-mediated phosphaturia.</td></tr>
-<tr><td>25-OH vitamin D</td><td>Often low or low-normal</td><td>Deficiency can amplify PTH elevation and may mask hypercalcemia.</td></tr>
-<tr><td>1,25-(OH)<sub>2</sub> vitamin D</td><td>High-normal or elevated</td><td>PTH stimulates 1-alpha hydroxylase.</td></tr>
-<tr><td>Alkaline phosphatase</td><td>Normal or mildly elevated</td><td>Higher values suggest more active skeletal turnover.</td></tr>
-<tr><td>Urinary calcium</td><td>High-normal or elevated in many patients</td><td>Used to assess stone risk and distinguish PHPT from FHH; interpret in clinical context.</td></tr>
+<tr><td><strong>Total calcium + albumin</strong></td><td>Confirm hypercalcemia and estimate adjusted calcium.</td><td>Repeated adjusted calcium above the laboratory ULN.</td><td>Correction formulas are imprecise; dehydration and albumin shifts can mislead.</td><td>Repeat. Obtain ionized calcium if the diagnosis remains uncertain.</td></tr>
+<tr><td><strong>Ionized calcium</strong></td><td>Directly measures biologically active calcium.</td><td>Elevated in hypercalcemic PHPT; must be normal for normocalcemic PHPT.</td><td>Specimen handling and pH affect the result.</td><td>Use when total calcium is discordant or normocalcemic PHPT is being considered.</td></tr>
+<tr><td><strong>Intact PTH</strong></td><td>Separates PTH-dependent from PTH-independent hypercalcemia.</td><td>Elevated or inappropriately normal during hypercalcemia.</td><td>Reading “normal PTH” as reassuring. Biotin may produce falsely low results. CKD can raise measured PTH.</td><td>Interpret with calcium, kidney function, assay range, and supplements.</td></tr>
+<tr><td><strong>Phosphorus</strong></td><td>Supports PTH physiology and flags CKD/phosphate disorders.</td><td>Often low or low-normal from phosphaturia.</td><td>Normal phosphorus does not exclude PHPT.</td><td>Use context; high phosphorus with high PTH and CKD points away from simple sporadic PHPT.</td></tr>
+<tr><td><strong>25-OH vitamin D</strong></td><td>Find secondary stimulation and optimize bone health.</td><td>May be low in PHPT, but deficiency is not diagnostic.</td><td>Deficiency can raise PTH, lower urine calcium, and occasionally mask the degree of hypercalcemia.</td><td>Replete cautiously to >30 ng/mL and reassess when needed.</td></tr>
+<tr><td><strong>Creatinine / eGFR / CrCl</strong></td><td>Identify secondary HPT and renal surgical criteria.</td><td>PHPT can occur at any kidney function, but CrCl/eGFR <60 is an operative criterion.</td><td>CKD itself raises PTH and lowers urine calcium. eGFR is an estimate.</td><td>Use creatinine clearance when the distinction or trend matters.</td></tr>
+<tr><td><strong>24-hour urine calcium</strong></td><td>Assess hypercalciuria, stone risk, and FHH probability.</td><td>Often normal-high or elevated; >250 mg/day in women or >300 mg/day in men is a surgical criterion in current workshop guidance.</td><td>Low result can reflect FHH, incomplete collection, thiazide/lithium, low intake, vitamin D deficiency, or CKD.</td><td>Assess collection creatinine and context; calculate CCCR when appropriate.</td></tr>
+<tr><td><strong>CCCR</strong></td><td>Supports PHPT vs FHH.</td><td>>0.02 favors PHPT; <0.01 favors FHH.</td><td>There is substantial overlap. It is not a definitive test.</td><td>Use age, lifelong calcium pattern, family history, confounders, and genetic testing.</td></tr>
+<tr><td><strong>Alkaline phosphatase</strong></td><td>Estimate skeletal turnover and hungry-bone risk.</td><td>Normal or mildly elevated in mild disease; marked elevation suggests active bone disease.</td><td>Total ALP can be hepatic.</td><td>Clarify source and consider postoperative calcium risk if markedly elevated.</td></tr>
+<tr><td><strong>Magnesium</strong></td><td>Important in perioperative hypocalcemia.</td><td>Not diagnostic of PHPT.</td><td>Hypomagnesemia can impair PTH secretion/action and complicate calcium correction.</td><td>Check and replace when hypocalcemia occurs.</td></tr>
 </tbody></table></div>
-<div class="callout"><strong>Assay nuance:</strong> Renal dysfunction can raise measured PTH because of reduced clearance and accumulation of PTH fragments. Interpret PTH in the context of kidney function.</div>
+<div class="callout"><strong>CCCR formula:</strong> (24-hour urine calcium × serum creatinine) ÷ (serum calcium × 24-hour urine creatinine). Use values from the same collection period and compatible units. A number is only useful if the collection and clinical context are credible.</div>
+</section>
+
+<section id="differential" class="searchable">
+<h2>Differential diagnosis by pattern</h2>
+<div class="tablewrap"><table>
+<thead><tr><th>Condition</th><th>Calcium</th><th>PTH</th><th>Phosphorus / urine</th><th>Clues</th><th>Decisive next step</th></tr></thead>
+<tbody>
+<tr><td><strong>Primary HPT</strong></td><td>High</td><td>High or inappropriately normal</td><td>Phosphorus often low-normal; urine Ca variable</td><td>New/progressive hypercalcemia, stone or bone disease</td><td>Repeat biochemical confirmation, exclude FHH, stage target organs</td></tr>
+<tr><td><strong>FHH</strong></td><td>Mildly high, usually lifelong</td><td>Normal or mildly high</td><td>CCCR often <0.01</td><td>Young age, family history, stable lifelong calcium</td><td>Historic/family calcium and genetic testing when suspected</td></tr>
+<tr><td><strong>Thiazide-associated</strong></td><td>High or high-normal</td><td>May be nonsuppressed</td><td>Urine calcium reduced</td><td>Medication timing</td><td>Review indication; repeat after safe withdrawal when clinically feasible</td></tr>
+<tr><td><strong>Lithium-associated</strong></td><td>High</td><td>High/nonsuppressed</td><td>Urine calcium may be low</td><td>Psychiatric therapy, possible multigland disease</td><td>Coordinate medication decision; evaluate as PHPT physiology</td></tr>
+<tr><td><strong>Tertiary HPT</strong></td><td>High</td><td>Markedly high</td><td>Often high phosphorus in advanced CKD</td><td>Long-standing secondary HPT, dialysis or transplant</td><td>Use renal history and longitudinal PTH/calcium course</td></tr>
+<tr><td><strong>Secondary HPT</strong></td><td>Normal or low</td><td>High</td><td>Depends on cause</td><td>Vitamin D deficiency, CKD, low intake, malabsorption, antiresorptives</td><td>Treat cause and repeat PTH/calcium</td></tr>
+<tr><td><strong>Malignancy/PTHrP</strong></td><td>High, often more acute/severe</td><td>Suppressed</td><td>Often low phosphorus with PTHrP</td><td>Cancer context, weight loss, rapid rise</td><td>PTHrP and malignancy-directed evaluation when indicated</td></tr>
+<tr><td><strong>Granulomatous disease/lymphoma</strong></td><td>High</td><td>Suppressed</td><td>1,25-(OH)2D may be elevated</td><td>Sarcoid, TB, lymphoma context</td><td>1,25-(OH)2D and disease-directed workup</td></tr>
+<tr><td><strong>Vitamin D intoxication</strong></td><td>High</td><td>Suppressed</td><td>25-OH D elevated</td><td>Supplement exposure</td><td>Measure 25-OH D and stop source</td></tr>
+<tr><td><strong>Milk-alkali physiology</strong></td><td>High</td><td>Suppressed</td><td>Metabolic alkalosis, kidney injury</td><td>High calcium carbonate/alkali intake</td><td>Exposure history and acid-base/renal evaluation</td></tr>
+</tbody></table></div>
 </section>
 
 <section id="fhh" class="searchable">
-<h2>PHPT versus familial hypocalciuric hypercalcemia</h2>
+<h2>PHPT versus FHH: do not oversimplify this</h2>
 <div class="grid2">
-<div class="card"><div class="label teal">Suggests PHPT</div><ul><li>Newer-onset hypercalcemia</li><li>Urine calcium not low</li><li>Kidney stones or skeletal complications</li><li>No lifelong family pattern</li></ul></div>
-<div class="card"><div class="label warn">Suggests FHH</div><ul><li>Hypercalcemia from a young age</li><li>Family members with similar calcium pattern</li><li>Typically low urine calcium</li><li>CASR, GNA11, or AP2S1 pathway variant</li></ul></div>
+  <div class="card"><div class="label teal">Features favoring PHPT</div><ul><li>Calcium became abnormal later in life or is rising</li><li>Kidney stones, nephrocalcinosis, osteoporosis, or fracture</li><li>CCCR >0.02</li><li>No family pattern</li><li>Urine calcium not low after confounders are addressed</li></ul></div>
+  <div class="card"><div class="label warn">Features favoring FHH</div><ul><li>Mild hypercalcemia since youth</li><li>Multiple family members with hypercalcemia</li><li>CCCR <0.01</li><li>Few classic PHPT complications</li><li>CASR, GNA11, or AP2S1 pathway variant</li></ul></div>
 </div>
-<div class="callout red"><strong>Pitfall:</strong> Do not send a patient with unrecognized FHH to parathyroid surgery. The hypercalcemia usually persists because the disorder is systemic, not a single-gland surgical disease.</div>
+<div class="callout red"><strong>The cutoff is not clean.</strong> Up to roughly 20% of PHPT can have CCCR <0.01, some FHH patients exceed 0.02, and many patients fall between 0.01 and 0.02. Thiazides, lithium, vitamin D deficiency, CKD, low intake, and an incomplete collection can falsely lower urine calcium.</div>
+<div class="callout teal"><strong>Practical rule:</strong> when FHH remains plausible, do not let a single urine result decide surgery. Use historical calcium, family testing, collection quality, confounders, and genetics.</div>
 </section>
 
 <section id="normocalcemic" class="searchable">
-<h2>Normocalcemic primary hyperparathyroidism</h2>
-<p>Normocalcemic PHPT requires persistently normal total and ionized calcium with elevated PTH after secondary causes have been excluded. It is a diagnosis of exclusion, not a label for any patient with osteoporosis and a mildly high PTH.</p>
-<div class="card"><div class="label">Exclude before diagnosing</div><ul class="tight"><li>Vitamin D deficiency or insufficiency</li><li>Chronic kidney disease</li><li>Low calcium intake or malabsorption</li><li>Hypercalciuria</li><li>Medications that alter calcium/PTH physiology</li><li>Assay limitations and transient abnormalities</li></ul></div>
-<div class="callout warn"><strong>Diagnostic requirement:</strong> Correct vitamin D deficiency and confirm that the abnormality persists before diagnosing normocalcemic PHPT.</div>
-</section>
-
-<section id="features" class="searchable">
-<h2>Clinical features</h2>
-<p>Most contemporary patients are asymptomatic. The absence of classic symptoms does not exclude clinically important skeletal or renal disease.</p>
-<div class="grid2">
-<div class="card"><h3>Renal</h3><ul><li>Nephrolithiasis</li><li>Nephrocalcinosis</li><li>Hypercalciuria</li><li>Polyuria/polydipsia in more marked hypercalcemia</li></ul></div>
-<div class="card"><h3>Skeletal</h3><ul><li>Low BMD, especially cortical sites</li><li>Vertebral or nonvertebral fractures</li><li>Rare: osteitis fibrosa cystica, brown tumors</li></ul></div>
-<div class="card"><h3>Neuropsychological</h3><ul><li>Fatigue, weakness, depression, cognitive complaints</li><li>These symptoms are nonspecific; evidence for predictable reversal after surgery is mixed.</li></ul></div>
-<div class="card"><h3>Other associations</h3><ul><li>Hypertension and cardiovascular findings</li><li>Gout or pseudogout</li><li>Peptic ulcer disease or pancreatitis in severe disease</li><li>Many associations are epidemiologic rather than clearly causal.</li></ul></div>
+<h2>Normocalcemic PHPT</h2>
+<div class="callout warn"><strong>This is a diagnosis of exclusion.</strong> It should not be used as a quick label for osteoporosis plus a mildly elevated PTH.</div>
+<div class="flow">
+  <div class="step">Confirm <strong>normal albumin-adjusted total calcium and normal ionized calcium</strong>.</div>
+  <div class="step">Confirm <strong>elevated PTH on at least two occasions over 3–6 months</strong>.</div>
+  <div class="step">Exclude vitamin D insufficiency; aim for 25-OH vitamin D >30 ng/mL and allow time for PTH to normalize.</div>
+  <div class="step">Exclude renal insufficiency, generally eGFR/CrCl <60 mL/min.</div>
+  <div class="step">Assess inadequate calcium intake, malabsorption/bariatric surgery, hypercalciuria, phosphate disorders, and medications such as bisphosphonates, denosumab, lithium, diuretics, anticonvulsants, PPIs, and SGLT2 inhibitors when relevant.</div>
+  <div class="step">Only after exclusions and persistence should normocalcemic PHPT be considered.</div>
 </div>
+<div class="callout"><strong>Surgery:</strong> current international workshop guidance does not provide a universal operative threshold for normocalcemic PHPT because evidence is limited. Management should be individualized, especially when there is progressive objective bone or renal disease.</div>
 </section>
 
-<section id="evaluation" class="searchable">
-<h2>Evaluation checklist after PHPT is confirmed</h2>
-<div class="tablewrap"><table>
-<thead><tr><th>Purpose</th><th>Recommended assessment</th></tr></thead>
-<tbody>
-<tr><td>Confirm biochemistry</td><td>Calcium, albumin, PTH, phosphate, alkaline phosphatase, creatinine/eGFR, vitamin D status.</td></tr>
-<tr><td>Differentiate FHH / quantify calcium handling</td><td>Morning 2-hour or 24-hour urine calcium and creatinine.</td></tr>
-<tr><td>Skeletal involvement</td><td>DXA at lumbar spine, hip, and distal one-third radius. Add vertebral imaging/VFA when indicated.</td></tr>
-<tr><td>Renal involvement</td><td>Renal ultrasound, noncontrast CT, or abdominal radiography to detect stones or nephrocalcinosis.</td></tr>
-<tr><td>Possible inherited disease</td><td>Assess age, family history, multigland disease, syndromic features, and parathyroid carcinoma risk.</td></tr>
-</tbody></table></div>
-</section>
-
-<section id="skeletal" class="searchable">
-<h2>Skeletal disease</h2>
-<div class="callout teal"><strong>Classic densitometric pattern:</strong> The distal one-third radius, a cortical site, is often most affected. Lumbar spine BMD may look relatively preserved because it is predominantly trabecular.</div>
-<ul><li>PTH excess increases both bone formation and resorption markers, reflecting high turnover.</li><li>Modern imaging shows that trabecular microarchitecture can still be impaired even when lumbar spine BMD is preserved.</li><li>Vertebral fracture risk can therefore be underestimated by lumbar spine BMD alone.</li><li>After successful surgery, bone resorption falls rapidly and BMD improves at multiple sites.</li></ul>
-</section>
-
-<section id="renal" class="searchable">
-<h2>Renal disease</h2>
-<ul><li>Stones may be symptomatic or clinically silent.</li><li>Renal imaging matters because history alone misses a meaningful number of patients.</li><li>Urinary calcium is not the only determinant of stone formation; interpret it with urine volume and other stone-risk factors.</li><li>Reduced kidney function can be both a consequence and a modifier of PHPT evaluation.</li></ul>
+<section id="organ" class="searchable">
+<h2>Assess target-organ involvement</h2>
+<div class="grid2">
+  <div class="card"><div class="label">Skeleton</div><ul><li>DXA at lumbar spine, hip, and distal one-third radius</li><li>Use T-score in postmenopausal women and men ≥50; use Z-score for younger patients as appropriate</li><li>VFA or vertebral X-ray when height loss, back pain, low BMD, glucocorticoids, or clinical concern</li><li>TBS can add information if available</li><li>Do not omit the radius: PHPT disproportionately affects cortical bone</li></ul></div>
+  <div class="card"><div class="label teal">Kidney</div><ul><li>Creatinine clearance or eGFR</li><li>Full 24-hour urine calcium</li><li>Renal ultrasound or noncontrast CT for stones/nephrocalcinosis</li><li>Stone-risk profile when stones or hypercalciuria are present</li><li>Do not rely on stone history alone; stones can be silent</li></ul></div>
+</div>
+<div class="callout teal"><strong>Important terminology:</strong> a patient discovered on screening can still have “asymptomatic PHPT with target-organ involvement.” Finding a silent stone or vertebral fracture changes management even if the patient had no complaint.</div>
 </section>
 
 <section id="surgery" class="searchable">
-<h2>Parathyroidectomy</h2>
-<div class="callout teal"><strong>Operate on symptomatic PHPT.</strong> Examples include nephrolithiasis/nephrocalcinosis, fragility fracture or overt skeletal disease, or clinically significant hypercalcemia.</div>
-<h3>Common operative criteria for asymptomatic PHPT</h3>
+<h2>Surgery decision</h2>
+<div class="callout green"><strong>Parathyroidectomy is the only curative treatment.</strong> All symptomatic patients should be offered surgery unless contraindicated. For asymptomatic disease, meeting any one criterion is enough.</div>
 <div class="tablewrap"><table>
-<thead><tr><th>Category</th><th>Criterion</th></tr></thead>
+<thead><tr><th>Domain</th><th>Current criterion</th><th>Clinical meaning</th></tr></thead>
 <tbody>
-<tr><td>Serum calcium</td><td>&gt;1.0 mg/dL above the upper limit of normal</td></tr>
-<tr><td>Renal function</td><td>Creatinine clearance &lt;60 mL/min</td></tr>
-<tr><td>Kidney stones</td><td>Nephrolithiasis or nephrocalcinosis on imaging</td></tr>
-<tr><td>Urine calcium</td><td>&gt;400 mg/24 h when accompanied by increased stone risk; verify the current guideline threshold</td></tr>
-<tr><td>Bone density</td><td>T-score ≤ −2.5 at any relevant site</td></tr>
-<tr><td>Fracture</td><td>Vertebral compression fracture on imaging</td></tr>
-<tr><td>Age</td><td>&lt;50 years</td></tr>
+<tr><td>Serum calcium</td><td>&gt;1.0 mg/dL above the laboratory ULN</td><td>Persistent biochemical severity</td></tr>
+<tr><td>Bone density</td><td>T-score ≤ −2.5 at lumbar spine, total hip, femoral neck, or distal one-third radius</td><td>Objective skeletal involvement</td></tr>
+<tr><td>Fracture</td><td>Vertebral fracture on VFA/X-ray or low-trauma fracture</td><td>Operate regardless of BMD value</td></tr>
+<tr><td>Renal function</td><td>eGFR or creatinine clearance &lt;60 mL/min</td><td>Renal indication</td></tr>
+<tr><td>Renal imaging</td><td>Nephrolithiasis or nephrocalcinosis</td><td>Silent or symptomatic disease qualifies</td></tr>
+<tr><td>Hypercalciuria</td><td>&gt;250 mg/day in women or &gt;300 mg/day in men</td><td>Revised lower thresholds in the Fifth Workshop</td></tr>
+<tr><td>Age</td><td>&lt;50 years</td><td>Age alone is sufficient</td></tr>
 </tbody></table></div>
-<div class="callout warn"><strong>Do not blindly memorize thresholds.</strong> Guideline criteria change. Verify the current recommendations before patient care or board preparation.</div>
+<div class="grid2">
+  <div class="card"><div class="label teal">Also refer for surgery</div><ul><li>Patient prefers definitive treatment</li><li>Surveillance is not feasible or desired</li><li>Suspected parathyroid carcinoma</li><li>Hypercalcemic crisis after stabilization</li><li>Progression during monitoring</li></ul></div>
+  <div class="card"><div class="label warn">Do not promise surgery will fix</div><ul><li>Nonspecific fatigue</li><li>Depression or cognitive complaints</li><li>Hypertension</li><li>Cardiovascular risk</li></ul><p class="muted">These may improve in some patients, but evidence is not reliable enough to use as the sole expected outcome.</p></div>
+</div>
 </section>
 
 <section id="localization" class="searchable">
-<h2>Preoperative localization</h2>
-<div class="callout"><strong>Rule:</strong> Diagnose PHPT biochemically. Localize only after surgery has been chosen.</div>
+<h2>Localization and operative planning</h2>
+<div class="callout red"><strong>Negative imaging does not negate a biochemical diagnosis and does not automatically rule out surgery.</strong></div>
 <div class="tablewrap"><table>
-<thead><tr><th>Modality</th><th>Best use / limitation</th></tr></thead>
+<thead><tr><th>Modality</th><th>Use</th><th>Limitations</th></tr></thead>
 <tbody>
-<tr><td>Neck ultrasound</td><td>No radiation; highly operator dependent; can confuse thyroid nodules or lymph nodes with parathyroid tissue.</td></tr>
-<tr><td>Sestamibi ± SPECT/CT</td><td>Useful for single adenomas; less reliable in multigland disease.</td></tr>
-<tr><td>4D-CT</td><td>Helpful in difficult or discordant localization; higher radiation exposure.</td></tr>
-<tr><td>MRI / PET</td><td>Selected cases, especially after other imaging fails or in reoperative settings.</td></tr>
-<tr><td>Selective venous sampling</td><td>Reserved for difficult reoperative cases when noninvasive imaging is unsuccessful.</td></tr>
-<tr><td>Parathyroid FNA with PTH washout</td><td>Not routine; potential seeding concern and generally reserved for selected diagnostic dilemmas.</td></tr>
+<tr><td>Neck ultrasound</td><td>First-line localization; evaluates thyroid simultaneously</td><td>Operator dependent; ectopic glands and multigland disease are harder</td></tr>
+<tr><td>Sestamibi ± SPECT/CT</td><td>Functional localization, especially single adenoma</td><td>Lower sensitivity in small glands, multigland disease, and some thyroid disease</td></tr>
+<tr><td>4D-CT</td><td>Discordant/negative first-line imaging or reoperative setting</td><td>Radiation and iodinated contrast</td></tr>
+<tr><td>18F-fluorocholine PET/CT</td><td>Selected difficult or reoperative cases</td><td>Availability, cost, radiation</td></tr>
+<tr><td>MRI</td><td>Selected patients when radiation/contrast issues matter</td><td>Availability and variable sensitivity</td></tr>
+<tr><td>Venous sampling</td><td>Rare, difficult reoperative cases</td><td>Invasive; expert-center test</td></tr>
 </tbody></table></div>
-<h3>Surgical approaches</h3>
-<ul><li><strong>Bilateral four-gland exploration:</strong> traditional approach; high cure rate with an expert surgeon.</li><li><strong>Minimally invasive parathyroidectomy:</strong> targeted operation when localization is convincing.</li><li><strong>Intraoperative PTH:</strong> a drop of more than 50% at about 10 minutes, with an appropriate final value supports removal of the dominant hyperfunctioning source.</li></ul>
-</section>
-
-<section id="postop" class="searchable">
-<h2>Immediate postoperative care</h2>
-<div class="grid2">
-<div class="card"><div class="label teal">Expected</div><ul><li>Rapid normalization of calcium and PTH</li><li>Fall in urinary calcium</li><li>Progressive BMD recovery</li></ul></div>
-<div class="card"><div class="label red">Watch for</div><ul><li>Hypocalcemia</li><li>Hungry bone syndrome</li><li>Hypomagnesemia or hypophosphatemia</li><li>Recurrent laryngeal nerve injury and neck complications</li></ul></div>
-</div>
-<div class="callout warn"><strong>Higher hungry-bone risk:</strong> severe skeletal disease, markedly elevated bone-turnover markers, very high PTH/alkaline phosphatase, and vitamin D deficiency.</div>
+<ul><li>Use an experienced parathyroid surgeon.</li><li>Focused surgery is reasonable with convincing localization and appropriate intraoperative strategy.</li><li>Bilateral exploration remains effective, especially for suspected multigland disease or nonlocalizing imaging.</li><li>Parathyroid FNA is not routine; avoid it unless a specific expert-level diagnostic problem justifies it.</li></ul>
 </section>
 
 <section id="medical" class="searchable">
-<h2>Medical management when surgery is not performed</h2>
-<p>No single drug reproduces parathyroidectomy. Choose therapy based on the problem you are trying to solve.</p>
+<h2>Nonoperative and bridging management</h2>
+<p>Do not use “medical management” as a vague substitute for deciding what problem you are treating.</p>
 <div class="tablewrap"><table>
-<thead><tr><th>Intervention</th><th>Main effect</th><th>What it does not reliably do</th></tr></thead>
+<thead><tr><th>Problem</th><th>Intervention</th><th>Expected effect</th><th>Limitation</th></tr></thead>
 <tbody>
-<tr><td>Hydration, mobility, medication review</td><td>Reduces avoidable worsening of hypercalcemia</td><td>Does not cure PHPT</td></tr>
-<tr><td>Normal guideline-level calcium intake</td><td>Avoids secondary PTH stimulation from unnecessary restriction</td><td>Not a treatment for the autonomous gland</td></tr>
-<tr><td>Vitamin D repletion</td><td>Can reduce PTH and support skeletal health when deficient</td><td>Requires monitoring of calcium and urine calcium</td></tr>
-<tr><td>Bisphosphonate, especially alendronate</td><td>Improves spine/hip BMD and lowers turnover markers</td><td>Usually does not normalize serum calcium or PTH</td></tr>
-<tr><td>Denosumab</td><td>Can improve BMD when antiresorptive therapy is needed</td><td>Does not correct the underlying PTH excess</td></tr>
-<tr><td>Cinacalcet</td><td>Lowers serum calcium and partially lowers PTH</td><td>Does not reliably improve BMD</td></tr>
-<tr><td>Combination strategy</td><td>May address both hypercalcemia and low BMD</td><td>Still not curative</td></tr>
+<tr><td>General care</td><td>Hydration, mobility, avoid dehydration, review offending drugs</td><td>Reduces avoidable worsening of hypercalcemia</td><td>Not curative</td></tr>
+<tr><td>Calcium intake</td><td>Maintain recommended nutritional intake; do not reflexively restrict</td><td>Avoids secondary PTH stimulation</td><td>Monitor if severe hypercalcemia or unusual intake</td></tr>
+<tr><td>Vitamin D deficiency</td><td>Cautious cholecalciferol replacement</td><td>Goal generally >30 ng/mL and below lab upper limit; may lower PTH</td><td>Monitor serum and urine calcium when clinically relevant</td></tr>
+<tr><td>Hypercalcemia</td><td>Cinacalcet</td><td>Lowers serum calcium; may partially lower PTH</td><td>Does not reliably improve BMD</td></tr>
+<tr><td>Low BMD/osteoporosis</td><td>Alendronate or denosumab when appropriate</td><td>Improves BMD</td><td>Does not cure PHPT and usually does not normalize calcium</td></tr>
+<tr><td>Both high calcium and low BMD</td><td>Cinacalcet plus antiresorptive</td><td>Targets both problems</td><td>Still not definitive treatment</td></tr>
+<tr><td>Severe acute hypercalcemia</td><td>Hospital-level IV hydration and rapid calcium-lowering therapy; definitive surgery after stabilization when feasible</td><td>Stabilizes organ dysfunction and symptoms</td><td>Requires individualized inpatient protocol</td></tr>
 </tbody></table></div>
-<div class="callout red"><strong>Common error:</strong> Using cinacalcet to “treat osteoporosis.” It is primarily a calcium-lowering strategy. Use an antiresorptive when the target is BMD.</div>
+<div class="callout red"><strong>Wrong-target errors:</strong> cinacalcet is not an osteoporosis drug. Bisphosphonates and denosumab are not reliable calcium-normalizing treatments for chronic PHPT. Choose treatment based on the endpoint.</div>
 </section>
 
 <section id="monitoring" class="searchable">
-<h2>Monitoring during nonoperative management</h2>
+<h2>Monitoring when surgery is deferred</h2>
 <div class="tablewrap"><table>
-<thead><tr><th>Parameter</th><th>Typical interval</th><th>Escalate if</th></tr></thead>
+<thead><tr><th>Parameter</th><th>Interval</th><th>Trigger to reconsider surgery</th></tr></thead>
 <tbody>
-<tr><td>Serum calcium</td><td>Annually</td><td>Progressive rise or clinically important hypercalcemia</td></tr>
-<tr><td>Renal function</td><td>At least annually</td><td>Decline in creatinine clearance/eGFR</td></tr>
-<tr><td>DXA</td><td>Every 1–2 years</td><td>T-score reaches operative range or meaningful bone loss occurs</td></tr>
-<tr><td>Vertebral assessment</td><td>When clinically indicated</td><td>New vertebral fracture</td></tr>
-<tr><td>Renal imaging / stone evaluation</td><td>When clinically indicated; baseline imaging is important</td><td>New stone or nephrocalcinosis</td></tr>
-<tr><td>Vitamin D</td><td>Periodically</td><td>Deficiency persists or replacement changes calcium handling</td></tr>
+<tr><td>Serum calcium</td><td>Annually; sooner if changing</td><td>Consistently >1 mg/dL above ULN or meaningful rise</td></tr>
+<tr><td>25-OH vitamin D</td><td>Annually</td><td>Persistent deficiency or replacement-related change</td></tr>
+<tr><td>Renal function</td><td>Annually; creatinine clearance preferred when precision matters</td><td>Significant decline or value <60 mL/min</td></tr>
+<tr><td>PTH</td><td>As clinically indicated</td><td>Interpret with calcium; PTH alone is not the primary progression endpoint</td></tr>
+<tr><td>Three-site DXA</td><td>Every 1–2 years; less often if robustly normal and stable</td><td>Significant loss or T-score ≤−2.5</td></tr>
+<tr><td>Vertebral imaging</td><td>When clinically indicated</td><td>New vertebral or low-trauma fracture</td></tr>
+<tr><td>Renal imaging</td><td>When clinically indicated after baseline assessment</td><td>New stone or nephrocalcinosis</td></tr>
+<tr><td>24-hour urine calcium</td><td>When clinically indicated</td><td>New hypercalciuria or stone-risk concern</td></tr>
 </tbody></table></div>
+<div class="callout teal"><strong>Monitoring is an active plan, not “follow up PRN.”</strong> Document which labs and imaging will be repeated, when, and which result will trigger surgery.</div>
+</section>
+
+<section id="postop" class="searchable">
+<h2>Postoperative care and long-term follow-up</h2>
+<h3>Immediate postoperative questions</h3>
+<div class="grid2">
+  <div class="card"><div class="label">Monitor</div><ul><li>Symptoms of hypocalcemia</li><li>Serum calcium; more than daily if hungry-bone risk is high</li><li>PTH when needed to clarify physiology</li><li>Phosphorus and magnesium</li><li>Neck hematoma, voice change, airway symptoms</li></ul></div>
+  <div class="card"><div class="label warn">Higher hungry-bone risk</div><ul><li>Very high preoperative PTH</li><li>Markedly elevated ALP</li><li>Severe hypercalcemia</li><li>Osteitis fibrosa cystica, brown tumors, multiple fractures</li><li>Large adenoma burden</li><li>Low preoperative vitamin D</li></ul></div>
+</div>
+<h3>Low calcium after surgery: distinguish the mechanism</h3>
+<div class="tablewrap"><table>
+<thead><tr><th>Feature</th><th>Postoperative hypoparathyroidism</th><th>Hungry bone syndrome</th></tr></thead>
+<tbody>
+<tr><td>PTH</td><td>Low or inappropriately normal</td><td>Normal or high</td></tr>
+<tr><td>Phosphorus</td><td>High</td><td>Low</td></tr>
+<tr><td>Magnesium</td><td>Variable</td><td>Often low</td></tr>
+<tr><td>Urine calcium on replacement</td><td>Normal or high</td><td>Low</td></tr>
+<tr><td>Timing/context</td><td>Immediately after loss or stunning of parathyroid tissue</td><td>Often becomes prominent around postoperative days 3–5 in high-turnover bone disease</td></tr>
+<tr><td>Treatment principle</td><td>Calcium ± active vitamin D; monitor for recovery</td><td>Aggressive and sometimes prolonged calcium, active vitamin D, magnesium, and phosphate-aware management</td></tr>
+</tbody></table></div>
+<h3>Define success correctly</h3>
+<ul><li><strong>Biochemical cure:</strong> normocalcemia maintained for at least 6 months.</li><li><strong>Persistent PHPT:</strong> failure to achieve durable normocalcemia during the first 6 months.</li><li><strong>Recurrent PHPT:</strong> hypercalcemia returns after at least 6 months of documented normocalcemia.</li><li><strong>Normal calcium with elevated PTH is not automatically recurrence.</strong> Check vitamin D, renal function, calcium intake, malabsorption, medications, and skeletal remineralization.</li><li>After successful surgery, check calcium at 6 months to document cure and then at least annually; measure PTH if hypercalcemia recurs or another clinical question exists.</li></ul>
 </section>
 
 <section id="special" class="searchable">
 <h2>Special situations</h2>
-<details><summary>Acute severe PHPT / hypercalcemic crisis</summary><div>Severe hypercalcemia may present with dehydration, renal dysfunction, gastrointestinal symptoms, and altered mental status. Stabilize hypercalcemia aggressively, then pursue definitive surgery when feasible.</div></details>
-<details><summary>Pregnancy</summary><div>PHPT in pregnancy carries maternal and fetal risk. Evaluation and timing of surgery require coordinated endocrine, surgical, and maternal-fetal medicine care.</div></details>
-<details><summary>Parathyroid carcinoma</summary><div>Consider with very high calcium and PTH, severe renal/skeletal disease, a palpable neck mass, or an invasive/adherent gland. En bloc initial surgery offers the best chance for cure. Cinacalcet and antiresorptives can help control hypercalcemia when disease is unresectable.</div></details>
-<details><summary>Parathyromatosis</summary><div>Scattered hyperfunctioning parathyroid tissue can arise after seeding from prior surgery or needle procedures. It often causes persistent or recurrent disease and is difficult to cure.</div></details>
-<details><summary>Inherited syndromes</summary><div>Young age, multigland disease, recurrent disease, jaw tumors, pituitary/pancreatic tumors, medullary thyroid cancer, pheochromocytoma, or a strong family history should prompt consideration of a genetic syndrome.</div></details>
+<details><summary>Pregnancy</summary><div><p>Use coordinated endocrine, endocrine-surgery, and maternal-fetal medicine care. Maintain hydration and monitor calcium in mild disease. Avoid bisphosphonates and denosumab. When surgery is needed, the second trimester is generally preferred; ultrasound is the localization modality of choice. If surgery is deferred, monitor the neonate for hypocalcemia.</p></div></details>
+<details><summary>Hypercalcemic crisis</summary><div><p>This is inpatient disease. Treat dehydration and organ dysfunction immediately, use rapid calcium-lowering therapy according to renal function and institutional protocol, and prioritize definitive parathyroidectomy after stabilization when feasible.</p></div></details>
+<details><summary>Possible parathyroid carcinoma</summary><div><p>Red flags include markedly high calcium/PTH, severe renal and skeletal disease, a palpable neck mass, vocal-cord dysfunction, or an invasive/adherent lesion. Avoid biopsy. Refer to an expert endocrine surgeon because the initial en bloc operation offers the best chance of durable control.</p></div></details>
+<details><summary>Young patient, multigland disease, or family history</summary><div><p>Consider MEN1, MEN2A, MEN4, CDC73-related hyperparathyroidism-jaw tumor syndrome, familial isolated hyperparathyroidism, and FHH. Genetic evaluation is particularly appropriate in patients under 30, multigland disease, family hypercalcemia, syndromic findings, atypical adenoma, or carcinoma.</p></div></details>
+<details><summary>Persistent or recurrent disease</summary><div><p>First reconfirm the biochemical diagnosis and exclude FHH or secondary causes. Review the operative report, pathology, intraoperative PTH, and all prior imaging. Reoperative localization may use 4D-CT or fluorocholine PET/CT in expert centers. Reoperation carries higher nerve and hypoparathyroidism risk and should be done by a high-volume reoperative parathyroid surgeon.</p></div></details>
 </section>
 
-<section id="natural" class="searchable">
-<h2>Natural history</h2>
-<div class="grid2">
-<div class="card"><div class="label teal">After surgery</div><ul><li>Calcium and PTH normalize.</li><li>BMD generally improves at spine, hip, and radius.</li><li>Renal stone burden may fall.</li></ul></div>
-<div class="card"><div class="label warn">Without surgery</div><ul><li>Biochemistry and BMD may remain stable for years.</li><li>Some patients later develop rising calcium or cortical bone loss.</li><li>Long-term surveillance is therefore not optional.</li></ul></div>
-</div>
+<section id="cases" class="searchable">
+<h2>Case walkthroughs</h2>
+<details open><summary>Case 1: Calcium 10.8, albumin 4.0, PTH 58</summary><div><p><strong>Reasoning:</strong> calcium is truly elevated. A PTH of 58 may be inside the laboratory range, but it is not suppressed; therefore the process is PTH-dependent. PHPT is most likely, but review thiazide/lithium and evaluate FHH. Repeat calcium/PTH on a second occasion, obtain 25-OH D, renal function, 24-hour urine calcium/creatinine, DXA including radius, and renal imaging.</p></div></details>
+<details><summary>Case 2: Calcium 9.6, PTH 105, vitamin D 14, eGFR 82</summary><div><p><strong>Reasoning:</strong> do not diagnose normocalcemic PHPT. Vitamin D deficiency is an obvious secondary driver. Replete vitamin D and confirm adequate calcium intake, then repeat calcium, ionized calcium, and PTH after an appropriate interval.</p></div></details>
+<details><summary>Case 3: Calcium 10.7 since age 20, PTH 54, CCCR 0.006</summary><div><p><strong>Reasoning:</strong> FHH is a major concern. Confirm the collection and confounders, review family calcium values, and pursue genetic evaluation when appropriate. Do not send directly to parathyroidectomy.</p></div></details>
+<details><summary>Case 4: Calcium 12.4, PTH 7</summary><div><p><strong>Reasoning:</strong> PTH is suppressed. This is not a standard PHPT workup. Evaluate the tempo and context; consider PTHrP-mediated malignancy, bone destruction, vitamin D-mediated disease, supplements/medications, and other PTH-independent causes.</p></div></details>
+<details><summary>Case 5: Dialysis patient, PTH 1400, calcium 11.2, phosphorus 6.8</summary><div><p><strong>Reasoning:</strong> the renal history, very high PTH, hypercalcemia, and hyperphosphatemia suggest tertiary hyperparathyroidism rather than sporadic PHPT. Management follows CKD-mineral bone disease and renal hyperparathyroidism pathways.</p></div></details>
+<details><summary>Case 6: Confirmed PHPT, calcium 10.6, age 64, T-score −2.7 at distal radius</summary><div><p><strong>Reasoning:</strong> the patient meets a surgical criterion based on BMD even though calcium is only mildly elevated and symptoms may be absent. Refer to an experienced parathyroid surgeon after completing renal evaluation and localization planning.</p></div></details>
 </section>
 
-<section id="pearls" class="searchable">
-<h2>Clinical pearls and pitfalls</h2>
+<section id="pitfalls" class="searchable">
+<h2>High-value pitfalls</h2>
 <div class="card"><ol>
-<li><strong>A normal PTH is not normal in hypercalcemia.</strong> It should be suppressed.</li>
-<li><strong>Do not diagnose PHPT with imaging.</strong> Imaging finds the gland after the biochemical diagnosis and operative decision.</li>
-<li><strong>Do not omit the distal one-third radius from DXA.</strong> PHPT preferentially affects cortical bone.</li>
-<li><strong>Do not assume “asymptomatic” means no organ damage.</strong> Silent stones and vertebral fractures are common enough to look for.</li>
-<li><strong>Normocalcemic PHPT is a diagnosis of exclusion.</strong> Vitamin D deficiency and CKD are far more common.</li>
-<li><strong>Cinacalcet and bisphosphonates solve different problems.</strong> Cinacalcet lowers calcium; antiresorptives improve BMD.</li>
-<li><strong>Think FHH before surgery.</strong> Especially in younger patients with lifelong mild hypercalcemia and low urine calcium.</li>
-<li><strong>Guideline date matters.</strong> Operative thresholds and follow-up recommendations should be checked against the latest guidance.</li>
+<li><strong>Calling a normal PTH “normal” during hypercalcemia.</strong> It should be suppressed.</li>
+<li><strong>Ordering localization imaging before confirming the diagnosis.</strong></li>
+<li><strong>Using a single calcium/PTH pair to make a lifelong diagnosis.</strong></li>
+<li><strong>Diagnosing normocalcemic PHPT before correcting vitamin D, calcium intake, renal disease, or medication effects.</strong></li>
+<li><strong>Using CCCR as a binary truth test.</strong></li>
+<li><strong>Forgetting that thiazides, lithium, CKD, vitamin D deficiency, and incomplete urine collection lower urinary calcium.</strong></li>
+<li><strong>Omitting the distal one-third radius from DXA.</strong></li>
+<li><strong>Assuming “asymptomatic” means no renal or skeletal disease.</strong></li>
+<li><strong>Using the obsolete >400 mg/day urine-calcium surgical threshold.</strong></li>
+<li><strong>Using cinacalcet for the wrong target.</strong></li>
+<li><strong>Calling isolated elevated PTH after surgery recurrent PHPT despite normal calcium.</strong></li>
+<li><strong>Sending a possible reoperative case to a low-volume surgeon.</strong></li>
 </ol></div>
 </section>
 
-<section id="quiz" class="searchable">
-<h2>Self-check</h2>
-<details class="quiz"><summary>1. Why can a “normal” PTH support PHPT?</summary><div>Because hypercalcemia should suppress PTH to a low level. A normal-range concentration is therefore inappropriately nonsuppressed.</div></details>
-<details class="quiz"><summary>2. Which DXA site is essential in PHPT but often omitted?</summary><div>The distal one-third radius, because it is a cortical site and cortical bone is preferentially affected by chronic PTH excess.</div></details>
-<details class="quiz"><summary>3. What is the main role of parathyroid imaging?</summary><div>Preoperative localization. It is not used to establish the biochemical diagnosis.</div></details>
-<details class="quiz"><summary>4. What laboratory pattern suggests secondary rather than primary HPT?</summary><div>Elevated PTH with low or normal calcium, in the appropriate context such as CKD, vitamin D deficiency, low calcium intake, or malabsorption.</div></details>
-<details class="quiz"><summary>5. Which medication lowers calcium but usually does not improve BMD?</summary><div>Cinacalcet.</div></details>
-<details class="quiz"><summary>6. Which therapy improves BMD but usually does not correct hypercalcemia?</summary><div>An antiresorptive such as alendronate; denosumab is another option in selected patients.</div></details>
-<details class="quiz"><summary>7. What must be excluded before diagnosing normocalcemic PHPT?</summary><div>Secondary causes of elevated PTH, especially vitamin D deficiency, CKD, low calcium intake/malabsorption, medication effects, and hypercalciuria.</div></details>
-<details class="quiz"><summary>8. What is the definitive treatment for PHPT?</summary><div>Parathyroidectomy.</div></details>
-</section>
-
+<section id="references" class="searchable">
+<h2>Guideline basis and scope</h2>
+<div class="callout"><strong>Clinical basis:</strong> the core diagnostic, evaluation, operative, monitoring, nutritional, and medication logic is aligned primarily with the Fifth International Workshop on PHPT (2022), with operative and postoperative concepts cross-checked against endocrine-surgery and European expert guidance. The page is written independently and does not reproduce a textbook chapter.</div>
 <div class="source">
-This educational study guide is for review and workflow support. It is not a substitute for current guidelines or patient-specific clinical judgment.
+<strong>Key sources:</strong>
+<ol>
+<li>Bilezikian JP, et al. Evaluation and Management of Primary Hyperparathyroidism: Summary Statement and Guidelines from the Fifth International Workshop. <em>J Bone Miner Res.</em> 2022;37:2293–2314.</li>
+<li>Wilhelm SM, et al. The American Association of Endocrine Surgeons Guidelines for Definitive Management of Primary Hyperparathyroidism. <em>JAMA Surg.</em> 2016;151:959–968.</li>
+<li>Bollerslev J, et al. European expert consensus on practical management of specific aspects of parathyroid disorders in adults and in pregnancy. <em>Eur J Endocrinol.</em> 2022;186:R33–R63.</li>
+<li>Perrier ND, et al. Surgical Aspects of Primary Hyperparathyroidism. <em>J Bone Miner Res.</em> 2022;37:2373–2390.</li>
+</ol>
+<p>This is an educational workflow for clinician review. It is not an EHR-integrated decision support system, does not account for every assay or comorbidity, and should not be used as the sole basis for patient care.</p>
 </div>
+</section>
 </main>
 </div>
 <script>
-const search=document.getElementById('search');
-search.addEventListener('input',()=>{
- const q=search.value.trim().toLowerCase();
- document.querySelectorAll('.searchable').forEach(el=>{
-   el.classList.toggle('hiddenBySearch', q && !el.innerText.toLowerCase().includes(q));
- });
+const $ = id => document.getElementById(id);
+const num = id => { const v = parseFloat($(id).value); return Number.isFinite(v) ? v : null; };
+const checked = id => $(id).checked;
+const fmt = (v,d=2) => Number.isFinite(v) ? v.toFixed(d) : '—';
+const status = (text, cls='blue') => `<span class="status ${cls}">${text}</span>`;
+
+$('search').addEventListener('input', () => {
+  const q = $('search').value.trim().toLowerCase();
+  document.querySelectorAll('.searchable').forEach(el => {
+    el.classList.toggle('hiddenBySearch', q && !el.innerText.toLowerCase().includes(q));
+  });
 });
+
+function listHTML(items){ return `<ul class="tight">${items.map(x=>`<li>${x}</li>`).join('')}</ul>`; }
+
+function interpretCase(){
+  const age=num('age'), sex=$('sex').value, ca=num('ca'), cauln=num('cauln'), alb=num('albumin');
+  const ion=num('ionca'), ionuln=num('ioncauln'), pth=num('pth'), pthlln=num('pthlln'), pthuln=num('pthuln');
+  const vitd=num('vitd'), egfr=num('egfr'), urineCa=num('urineCa'), urineCr=num('urineCr'), serumCr=num('serumCr');
+  const tScore=num('tScore');
+  const corrected = (ca!==null && alb!==null) ? ca + 0.8*(4-alb) : null;
+  const effectiveCa = ion!==null && ionuln!==null ? null : (corrected!==null ? corrected : ca);
+  const hyperByIon = ion!==null && ionuln!==null ? ion>ionuln : false;
+  const hyperByTotal = effectiveCa!==null && cauln!==null ? effectiveCa>cauln : false;
+  const hyper = hyperByIon || hyperByTotal;
+  const clearlyNormalCa = ((ion!==null && ionuln!==null && ion<=ionuln) || ion===null) && ((effectiveCa!==null && cauln!==null && effectiveCa<=cauln) || effectiveCa===null);
+  const pthHigh = pth!==null && pthuln!==null && pth>pthuln;
+  const pthSuppressed = pth!==null && pthlln!==null && pth<pthlln;
+  const pthNonsuppressed = pth!==null && !pthSuppressed;
+
+  let cOut=[];
+  if(ca===null && ion===null){ cOut.push(status('Insufficient data','amber'),'Enter total or ionized calcium.'); }
+  else {
+    if(ca!==null) cOut.push(`Measured total calcium: <strong>${fmt(ca)}</strong> mg/dL.`);
+    if(corrected!==null) cOut.push(`Estimated albumin-adjusted calcium: <strong>${fmt(corrected)}</strong> mg/dL.`);
+    if(ion!==null) cOut.push(`Ionized calcium: <strong>${ion}</strong>${ionuln!==null?` (ULN ${ionuln})`:''}.`);
+    if(hyper) cOut.unshift(status('Hypercalcemia supported','red'));
+    else cOut.unshift(status('Hypercalcemia not established','amber'));
+    if(alb!==null && Math.abs(alb-4)>=0.7) cOut.push('Because albumin is substantially abnormal, ionized calcium is more useful than relying on correction alone.');
+  }
+  $('calciumOutput').innerHTML=listHTML(cOut);
+
+  let pOut=[];
+  if(pth===null){ pOut.push(status('PTH missing','amber'),'Order intact PTH with the repeat calcium.'); }
+  else if(hyper && pthSuppressed){ pOut.push(status('PTH-independent branch','red'),`PTH ${pth} is suppressed for this calcium. Standard PHPT is unlikely.`); }
+  else if(hyper && pthNonsuppressed){ pOut.push(status('PTH-dependent branch','blue'),`PTH ${pth} is not suppressed. A value inside the reference range is still physiologically inappropriate during hypercalcemia.`); }
+  else if(clearlyNormalCa && pthHigh){ pOut.push(status('Elevated PTH with normal calcium','amber'),'Evaluate secondary hyperparathyroidism before considering normocalcemic PHPT.'); }
+  else { pOut.push(status('Indeterminate','amber'),'Repeat paired calcium/PTH and interpret with assay ranges and clinical context.'); }
+  if(checked('biotin')) pOut.push('Biotin can cause falsely low PTH in some assays; hold according to assay/lab guidance and repeat if needed.');
+  $('pthOutput').innerHTML=listHTML(pOut);
+
+  let dOut=[];
+  if(hyper && pthNonsuppressed){
+    dOut.push('<strong>PHPT is the leading diagnosis</strong> once persistence is confirmed, but the following must be addressed: FHH, thiazide/lithium effects, and tertiary HPT.');
+    if(checked('dialysis')) dOut.push('Long-standing CKD/dialysis/transplant makes tertiary hyperparathyroidism a major alternative.');
+    if(checked('thiazide')) dOut.push('Thiazide use can raise serum calcium and lower urine calcium.');
+    if(checked('lithium')) dOut.push('Lithium can create PTH-dependent hypercalcemia and multigland disease.');
+    if(checked('family') || $('caHistory').value==='lifelong') dOut.push('Lifelong/familial hypercalcemia substantially raises FHH probability.');
+  } else if(hyper && pthSuppressed){
+    dOut.push('<strong>Do not continue down a PHPT pathway.</strong> Use the clinical context to evaluate PTHrP/malignancy, vitamin D-mediated disease, granulomatous disease/lymphoma, medications/supplements, thyrotoxicosis, adrenal insufficiency, immobilization, and milk-alkali physiology.');
+  } else if(clearlyNormalCa && pthHigh){
+    const sec=[];
+    if(vitd!==null && vitd<30) sec.push(`25-OH D ${vitd} (<30)`);
+    if(egfr!==null && egfr<60) sec.push(`renal function ${egfr} (<60)`);
+    if(checked('malabsorption')) sec.push('malabsorption/bariatric history');
+    if(checked('lowCaIntake')) sec.push('low calcium intake');
+    if(checked('antiresorptive')) sec.push('antiresorptive use');
+    if(checked('lithium') || checked('thiazide')) sec.push('medication effect');
+    dOut.push(sec.length ? `<strong>Secondary causes are present:</strong> ${sec.join(', ')}.` : 'No obvious secondary cause was entered, but normocalcemic PHPT still requires repeated normal total and ionized calcium plus elevated PTH over 3–6 months and a complete exclusion workup.');
+  } else dOut.push('The current data do not establish a specific branch. Repeat paired calcium/PTH and confirm the calcium status.');
+  $('diagnosisOutput').innerHTML=listHTML(dOut);
+
+  let uOut=[];
+  let cccr=null;
+  if(urineCa!==null && urineCr!==null && serumCr!==null && ca!==null && urineCr>0 && ca>0){ cccr=(urineCa*serumCr)/(ca*urineCr); }
+  if(urineCa!==null){
+    uOut.push(`24-hour urine calcium: <strong>${urineCa} mg/day</strong>.`);
+    if(sex==='female') uOut.push(urineCa>250 ? status('Above female hypercalciuria threshold','red') : status('Not above female surgical threshold','blue'));
+    if(sex==='male') uOut.push(urineCa>300 ? status('Above male hypercalciuria threshold','red') : status('Not above male surgical threshold','blue'));
+  }
+  if(cccr!==null){
+    uOut.push(`Calculated CCCR: <strong>${fmt(cccr,4)}</strong>.`);
+    if(cccr<0.01) uOut.push('This favors FHH, but does not prove it.');
+    else if(cccr>0.02) uOut.push('This favors PHPT, but does not exclude FHH.');
+    else uOut.push('This is the indeterminate overlap range (0.01–0.02).');
+  } else uOut.push('Enter urine calcium, urine creatinine, serum creatinine, and serum calcium to calculate CCCR.');
+  const conf=[];
+  if(checked('thiazide')) conf.push('thiazide'); if(checked('lithium')) conf.push('lithium'); if(vitd!==null && vitd<30) conf.push('vitamin D <30'); if(egfr!==null && egfr<60) conf.push('reduced kidney function'); if(checked('lowCaIntake')) conf.push('low calcium intake'); if($('collection').value==='questionable') conf.push('questionable collection');
+  if(conf.length) uOut.push(`Urine calcium may be falsely low or difficult to interpret because of: ${conf.join(', ')}.`);
+  $('urineOutput').innerHTML=listHTML(uOut);
+
+  let criteria=[];
+  const caForCriteria = corrected!==null ? corrected : ca;
+  if(checked('symptomatic')) criteria.push('symptomatic/overt PHPT complication');
+  if(caForCriteria!==null && cauln!==null && caForCriteria>cauln+1) criteria.push(`calcium >1.0 mg/dL above ULN (${fmt(caForCriteria)} vs ULN ${cauln})`);
+  if(age!==null && age<50) criteria.push('age <50 years');
+  if(egfr!==null && egfr<60) criteria.push('eGFR/CrCl <60 mL/min');
+  if(checked('stone')) criteria.push('nephrolithiasis/nephrocalcinosis');
+  if(checked('vertebral')) criteria.push('vertebral or low-trauma fracture');
+  if(tScore!==null && tScore<=-2.5) criteria.push(`T-score ≤−2.5 (${tScore})`);
+  if(urineCa!==null && sex==='female' && urineCa>250) criteria.push('urine calcium >250 mg/day (female threshold)');
+  if(urineCa!==null && sex==='male' && urineCa>300) criteria.push('urine calcium >300 mg/day (male threshold)');
+  if(criteria.length) $('surgeryOutput').innerHTML=status('At least one criterion met','green')+listHTML(criteria)+`<p class="small">If PHPT is confirmed and no contraindication exists, refer to an experienced parathyroid surgeon.</p>`;
+  else $('surgeryOutput').innerHTML=status('No entered criterion identified','amber')+`<p>This does not mean surgery is inappropriate. Confirm that DXA, vertebral assessment, renal imaging, kidney function, urine calcium, age, and symptoms have all been evaluated. Surgery remains an option by shared decision.</p>`;
+
+  let next=[];
+  if(hyper && pthNonsuppressed){
+    next.push('Repeat paired calcium/albumin and PTH on a second occasion at least 2 weeks apart if not already done.');
+    next.push('Review thiazide, lithium, biotin, calcium/vitamin D supplements, renal history, and historical calcium values.');
+    next.push('Obtain 25-OH vitamin D, kidney function, full 24-hour urine calcium/creatinine, three-site DXA, vertebral assessment as indicated, and renal imaging.');
+    if(checked('family') || $('caHistory').value==='lifelong' || (cccr!==null && cccr<0.01)) next.push('Resolve FHH risk before surgery; consider family calcium testing and genetics.');
+    if(criteria.length) next.push('Refer to an experienced parathyroid surgeon; order localization only after the operative decision.');
+  } else if(hyper && pthSuppressed){
+    next.push('Use a PTH-independent hypercalcemia workup driven by tempo and clinical context.');
+    next.push('Consider PTHrP, 25-OH D, 1,25-(OH)2D, SPEP/free light chains, TSH, cortisol, medication/supplement review, and imaging only when clinically indicated.');
+  } else if(clearlyNormalCa && pthHigh){
+    next.push('Correct secondary causes and confirm normal ionized calcium.');
+    next.push('Repeat PTH and calcium after correction; diagnosis requires persistence over 3–6 months.');
+  } else next.push('Repeat paired calcium, albumin/ionized calcium, and PTH before labeling the disorder.');
+  if(checked('pregnant')) next.push('Coordinate with maternal-fetal medicine and endocrine surgery; pregnancy changes medication and imaging choices.');
+  $('nextOutput').innerHTML=listHTML(next);
+  $('caseResult').classList.add('show');
+  $('caseResult').scrollIntoView({behavior:'smooth',block:'nearest'});
+}
+
+$('interpretBtn').addEventListener('click',interpretCase);
+$('resetBtn').addEventListener('click',()=>{ document.querySelectorAll('#interpreter input').forEach(x=>{ if(x.type==='checkbox') x.checked=false; else x.value=''; }); $('cauln').value='10.2'; $('pthlln').value='15'; $('pthuln').value='65'; $('sex').value=''; $('caHistory').value='unknown'; $('collection').value='unknown'; $('caseResult').classList.remove('show'); });
+
+$('buildOrders').addEventListener('click',()=>{
+  const selected=[...document.querySelectorAll('#orderList input:checked')].map(x=>'• '+x.dataset.order);
+  $('ordersText').textContent=selected.length ? 'PHPT / hypercalcemia workup\n'+selected.join('\n') : 'No orders selected.';
+});
+$('copyOrders').addEventListener('click',()=>copyText('ordersText'));
+function copyText(id){ navigator.clipboard.writeText($(id).innerText).then(()=>{ const old=$(id).style.outline; $(id).style.outline='2px solid #2b8a57'; setTimeout(()=>$(id).style.outline=old,700); }).catch(()=>{}); }
 </script>
 </body>
 </html>
